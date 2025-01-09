@@ -14,5 +14,28 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="app.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get('token');
+
+if (token) {
+  // Query Supabase to check if the token is valid and not expired
+  const { data, error } = await supabase
+    .from('tokens')
+    .select('*')
+    .eq('token', token)
+    .single();
+
+  if (error || !data || new Date(data.expires_at) < new Date()) {
+    alert('Invalid or expired token');
+  } else {
+    // Token is valid and not expired, grant access
+    alert('Token is valid. You have access!');
+  }
+} else {
+  alert('No token found');
+}
+
+  </script>
 </body>
 </html>
