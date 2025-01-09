@@ -3,57 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skip Ad</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
-    }
-    #generateTokenButton {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    #redirectLink {
-      display: none;
-      margin-top: 20px;
-    }
-  </style>
+  <title>Your Website</title>
 </head>
 <body>
-  <h1>Skip Ad to Access Page</h1>
+  <h1>Welcome to My Website</h1>
   <button id="generateTokenButton">Generate Token</button>
-  <a id="redirectLink" href="#" target="_blank">Click here to continue</a>
+  <p id="redirectLink" style="display:none;">
+    Click <a id="tokenLink" href="#">here</a> to access the page.
+  </p>
 
-  <script>
-    document.getElementById("generateTokenButton").addEventListener("click", async () => {
-      const button = document.getElementById("generateTokenButton");
-      const redirectLink = document.getElementById("redirectLink");
-
-      button.textContent = "Generating...";
-      button.disabled = true;
-
-      try {
-        // Call the generate token function
-        const response = await fetch("/.netlify/functions/generate-token");
-        const data = await response.json();
-        console.log("Response Data:", data);
-
-        if (data.shortUrl) {
-          redirectLink.href = data.shortUrl;
-          redirectLink.style.display = "block";
-          button.style.display = "none";
-        } else {
-          throw new Error("Failed to generate short link");
-        }
-      } catch (err) {
-        alert("An error occurred. Please try again.");
-        console.error("Error:", err);
-        button.textContent = "Generate Token";
-        button.disabled = false;
-      }
-    });
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
